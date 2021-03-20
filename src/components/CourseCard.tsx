@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Course } from "../data/courses";
+import { useLocation, useHistory } from "react-router-dom";
 
 interface Props {
   course: Course;
@@ -22,12 +23,20 @@ const useStyles = makeStyles({
 
 export default function CourseCard(props: Props) {
   const classes = useStyles();
+  let history = useHistory();
 
-  const { title, description, thumbnail, price, currency } = props.course;
+  const {
+    slug,
+    title,
+    offerDescription,
+    thumbnail,
+    price,
+    currency,
+  } = props.course;
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+      <CardActionArea onClick={() => console.log(history.push(slug))}>
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
@@ -40,12 +49,16 @@ export default function CourseCard(props: Props) {
             {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {description}
+            {offerDescription}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          onClick={() => console.log(history.push(slug))}
+        >
           Oglądaj szkolenie
         </Button>
         <Button size="small" color="secondary">
