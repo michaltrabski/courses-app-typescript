@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Button, Typography } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Box, Button, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import { allCourses } from "../data/courses";
-import { getUserAccessCodes } from "../utils/utils";
-import { green } from "@material-ui/core/colors";
+import { getCodes } from "../utils/utils";
+import { green, yellow } from "@material-ui/core/colors";
 import AccessCodeForm from "./AccessCodeForm";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -26,32 +26,41 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "5px",
       padding: "20px",
     },
+    bgYellow: {
+      backgroundColor: yellow[500],
+    },
+    video: {
+      maxWidth: "100%",
+      border: "1px solid black",
+    },
   })
 );
 
 const Course = () => {
   const classes = useStyles();
   const { pathname } = useLocation();
-  const codes = getUserAccessCodes();
+  const [codes, updateCodes] = useState<string[]>([]);
 
   const course = allCourses.find((course) => course.slug === pathname);
+
+  useEffect(() => {
+    updateCodes(getCodes());
+  }, []);
 
   if (!course) return <></>;
 
   const {
-    accessCode,
     title,
     contentDescription,
     lessons,
     price,
     currency,
+    accessCode,
   } = course;
 
-  const hasAccess = codes.includes(accessCode);
+  const access = codes.includes(accessCode);
   return (
     <>
-      {/* <h3>{JSON.stringify(course)}</h3> */}
-
       <Typography gutterBottom align="center">
         Witaj na szkoleniu
       </Typography>
@@ -62,50 +71,47 @@ const Course = () => {
         {contentDescription}
       </Typography>
 
-      {hasAccess ? (
-        <Typography
-          variant="body2"
-          gutterBottom
-          className={classes.successInfo}
-        >
-          Masz już wykupiony dostęp do tego szkolenia!
+      {access ? (
+        <Typography variant="body2" gutterBottom>
+          Tak - posiadasz już dostęp do tego szkolenia!
         </Typography>
       ) : (
-        <div className={classes.orangeBorder}>
-          <Typography variant="body2" gutterBottom>
-            Kup bezterminowy dostęp do szkolenia za
-            {""} {price} {currency}
-          </Typography>
-
-          <div>
-            Masz już wykupiony dostęp? Podaj kod dostępu:
-            <AccessCodeForm />
-          </div>
-        </div>
+        <AccessCodeForm updateCodes={updateCodes} />
       )}
 
-      {lessons.map((lesson) => {
+      {lessons.map((lesson, index) => {
         const { title, description, videoUrl } = lesson;
         return (
-          <>
-            <h2>{title}</h2>
+          <Box key={index} mb={5}>
+            <h2>Lekcja {index + 1}</h2>
+            <h3>{title}</h3>
             {description && <p>{description}</p>}
             <div className={classes.positionRelative}>
               <video
-                style={{ maxWidth: "100%" }}
+                className={classes.video}
                 src={videoUrl}
-                controls
+                controls={access}
               ></video>
-              {hasAccess || (
+
+              {access || (
                 <div className={classes.positionAbsolute}>
-                  <Button variant="contained" color="secondary">
-                    Wykup bezterminowy dostęp do całego szkolenia za
-                    {""} {price} {currency}
+                  <Typography
+                    className={classes.bgYellow}
+                    variant="h4"
+                    component="h1"
+                    gutterBottom
+                    align="center"
+                  >
+                    Wykup bezterminowy dostęp do wszystkich filmów wideo z tego
+                    szkolenia!
+                  </Typography>
+                  <Button variant="contained" color="secondary" fullWidth>
+                    Kup Teraz {price} {currency}
                   </Button>
                 </div>
               )}
             </div>
-          </>
+          </Box>
         );
       })}
     </>

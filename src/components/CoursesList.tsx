@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import CourseCard from "./CourseCard";
 import { allCourses } from "../data/courses";
 import { Typography } from "@material-ui/core";
 
 function CoursesList() {
+  const [courses, setCouses] = useState(allCourses);
   return (
     <>
       <Typography variant="h4" component="h1" gutterBottom align="center">
@@ -13,8 +14,8 @@ function CoursesList() {
         Zapraszam do nauki!
       </Typography>
 
-      {allCourses.map((course) => (
-        <CourseCard course={course} />
+      {courses.map((course) => (
+        <CourseCard key={course.slug} course={course} />
       ))}
     </>
   );

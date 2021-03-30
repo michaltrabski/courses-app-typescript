@@ -1,40 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
-import { getUserAccessCodes } from "../utils/utils";
+import { Box, Button } from "@material-ui/core";
+import { getCodes, getUserAccessCodes, setCodes } from "../utils/utils";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
+      textAlign: "center",
       "& > *": {
         margin: theme.spacing(1),
         width: "25ch",
+        textAlign: "center",
       },
     },
   })
 );
 
-export default function AccessCodeForm() {
+interface Props {
+  updateCodes: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+export default function AccessCodeForm(props: Props) {
   const classes = useStyles();
+  const [value, setValue] = useState("");
 
-  const handleClick = (code: string) => {
-    const userCodes = getUserAccessCodes();
-    userCodes.push(code);
-    localStorage.setItem("userAccessCodes", JSON.stringify(userCodes));
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setCodes(value);
+    props.updateCodes(getCodes());
+    setValue("");
   };
-
   return (
-    <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="outlined-basic" label="Kod dostępu" variant="outlined" />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleClick("asd")}
-      >
+    <form
+      className={classes.root}
+      noValidate
+      autoComplete="off"
+      onSubmit={handleSubmit}
+    >
+      <TextField
+        id="outlined-basic"
+        label="Podaj kod dostępu"
+        variant="outlined"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+      <Button type="submit" variant="contained" color="primary">
         Sprawdź kod
       </Button>
-      {getUserAccessCodes()}
     </form>
   );
 }

@@ -1,5 +1,11 @@
 const folder = "https://poznaj-testy.hekko24.pl/kursy";
 
+interface Lesson {
+  title: string;
+  description?: string;
+  videoUrl: string;
+}
+
 export interface Course {
   accessCode: string;
   slug: string;
@@ -11,12 +17,6 @@ export interface Course {
   currency: string;
   lessons: Lesson[];
   contentDescription: string;
-}
-
-interface Lesson {
-  title: string;
-  description?: string;
-  videoUrl: string;
 }
 
 const kompendiumWiedzy: Course = {
