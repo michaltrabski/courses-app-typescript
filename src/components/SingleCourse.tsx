@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     positionAbsolute: {
       position: "absolute",
+      minWidth: "180px",
       top: "50%",
       left: "50%",
       transform: "translate(-50%, -50%)",
@@ -55,7 +56,7 @@ const SingleCourse = () => {
 
   return (
     <>
-      <Box m={5}>
+      <Box mt={5} mb={5}>
         <Typography variant="body1" gutterBottom align="center">
           Witaj na szkoleniu
         </Typography>
@@ -103,23 +104,36 @@ const SingleCourse = () => {
 
               {access || (
                 <div className={classes.positionAbsolute}>
-                  <Typography
-                    className={classes.bgYellow}
-                    variant="body2"
-                    gutterBottom
-                    align="center"
-                  >
-                    Wykup bezterminowy dostęp do wszystkich filmów wideo z tego
-                    szkolenia!
-                  </Typography>
+                  <Box mb={1}>
+                    <Typography
+                      className={classes.bgYellow}
+                      variant="body2"
+                      gutterBottom
+                      align="center"
+                    >
+                      Wykup bezterminowy dostęp do wszystkich filmów wideo z
+                      tego szkolenia!
+                    </Typography>
+                  </Box>
+                  <Box mb={1}>
+                    <Button
+                      href={course.dotpay}
+                      target="_blank"
+                      variant="contained"
+                      color="secondary"
+                      fullWidth
+                      size="large"
+                    >
+                      Kup Teraz {course.price} {course.currency}
+                    </Button>
+                  </Box>
                   <Button
-                    href={course.dotpay}
-                    target="_blank"
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     fullWidth
+                    size="small"
                   >
-                    Kup Teraz {course.price} {course.currency}
+                    Podaj kod dostępu
                   </Button>
                 </div>
               )}

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { Box, Button } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import { getCodes, getUserAccessCodes, setCodes } from "../utils/utils";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +34,11 @@ export default function AccessCodeForm(props: Props) {
     setValue("");
   };
   return (
-    <Box m={5}>
+    <Box mt={5}>
+      <Typography variant="body1" gutterBottom align="center">
+        Masz już wykupiony dostęp do szkolenia? Podaj kod dostępu, który
+        otrzymałeś na email użyty przy zakupie dostępu.
+      </Typography>
       <form
         className={classes.root}
         noValidate
@@ -51,7 +55,13 @@ export default function AccessCodeForm(props: Props) {
           />
         </Box>
         <Box>
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            size="large"
+          >
             Sprawdź kod
           </Button>
         </Box>
