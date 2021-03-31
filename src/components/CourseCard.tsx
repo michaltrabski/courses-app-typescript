@@ -39,10 +39,10 @@ export default function CourseCard(props: Props) {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {course.title}
+            {course.cardTitle}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {course.offerDescription}
+            {course.cardDescription}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -28,6 +28,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     bgYellow: {
       backgroundColor: yellow[500],
+      borderRadius: "5px",
+      padding: "3px",
     },
     video: {
       maxWidth: "100%",
@@ -49,44 +51,39 @@ const SingleCourse = () => {
 
   if (!course) return <></>;
 
-  const {
-    title,
-    contentDescription,
-    lessons,
-    price,
-    currency,
-    accessCode,
-  } = course;
+  const access = codes.includes(course.accessCode);
 
-  const access = codes.includes(accessCode);
   return (
     <>
-      <Typography gutterBottom align="center">
-        Witaj na szkoleniu
-      </Typography>
-      <Typography variant="h1" component="h1" gutterBottom align="center">
-        {title}
-      </Typography>
-      <Typography variant="body1" gutterBottom>
-        {contentDescription}
-      </Typography>
-      {access ? (
-        <Typography variant="body1" gutterBottom>
-          Tak - posiadasz już dostęp do tego szkolenia!
+      <Box m={5}>
+        <Typography variant="body1" gutterBottom align="center">
+          Witaj na szkoleniu
         </Typography>
-      ) : (
-        <AccessCodeForm updateCodes={updateCodes} />
-      )}
-      {lessons.map((lesson, index) => {
+        <Typography variant="h4" component="h1" gutterBottom align="center">
+          {course.cardTitle}
+        </Typography>
+        <Typography variant="body1" gutterBottom align="center">
+          {course.cardDescription}
+        </Typography>
+        {access ? (
+          <Typography variant="body1" gutterBottom align="center">
+            Tak - posiadasz już dostęp do tego szkolenia!
+          </Typography>
+        ) : (
+          <AccessCodeForm updateCodes={updateCodes} />
+        )}
+      </Box>
+
+      {course.lessons.map((lesson, index) => {
         const { title, description, videoUrl } = lesson;
         return (
           <Box key={index} mb={5}>
-            <Typography variant="h3" component="h2" gutterBottom>
+            <Typography variant="h5" component="h2" gutterBottom>
               Lekcja {index + 1}
             </Typography>
 
             {title && (
-              <Typography variant="h4" component="h3" gutterBottom>
+              <Typography variant="h6" component="h3" gutterBottom>
                 {title}
               </Typography>
             )}
@@ -108,16 +105,21 @@ const SingleCourse = () => {
                 <div className={classes.positionAbsolute}>
                   <Typography
                     className={classes.bgYellow}
-                    variant="h4"
-                    component="h1"
+                    variant="body2"
                     gutterBottom
                     align="center"
                   >
                     Wykup bezterminowy dostęp do wszystkich filmów wideo z tego
                     szkolenia!
                   </Typography>
-                  <Button variant="contained" color="secondary" fullWidth>
-                    Kup Teraz {price} {currency}
+                  <Button
+                    href={course.dotpay}
+                    target="_blank"
+                    variant="contained"
+                    color="secondary"
+                    fullWidth
+                  >
+                    Kup Teraz {course.price} {course.currency}
                   </Button>
                 </div>
               )}
