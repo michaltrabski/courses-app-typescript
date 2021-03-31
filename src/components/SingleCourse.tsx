@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
-import { allCourses } from "../data/courses";
+import { allCourses } from "../data/coursesData";
 import { getCodes } from "../utils/utils";
 import { green, yellow } from "@material-ui/core/colors";
 import AccessCodeForm from "./AccessCodeForm";
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Course = () => {
+const SingleCourse = () => {
   const classes = useStyles();
   const { pathname } = useLocation();
   const [codes, updateCodes] = useState<string[]>([]);
@@ -64,28 +64,39 @@ const Course = () => {
       <Typography gutterBottom align="center">
         Witaj na szkoleniu
       </Typography>
-      <Typography variant="h4" component="h1" gutterBottom align="center">
+      <Typography variant="h1" component="h1" gutterBottom align="center">
         {title}
       </Typography>
-      <Typography variant="body2" gutterBottom>
+      <Typography variant="body1" gutterBottom>
         {contentDescription}
       </Typography>
-
       {access ? (
-        <Typography variant="body2" gutterBottom>
+        <Typography variant="body1" gutterBottom>
           Tak - posiadasz już dostęp do tego szkolenia!
         </Typography>
       ) : (
         <AccessCodeForm updateCodes={updateCodes} />
       )}
-
       {lessons.map((lesson, index) => {
         const { title, description, videoUrl } = lesson;
         return (
           <Box key={index} mb={5}>
-            <h2>Lekcja {index + 1}</h2>
-            <h3>{title}</h3>
-            {description && <p>{description}</p>}
+            <Typography variant="h3" component="h2" gutterBottom>
+              Lekcja {index + 1}
+            </Typography>
+
+            {title && (
+              <Typography variant="h4" component="h3" gutterBottom>
+                {title}
+              </Typography>
+            )}
+
+            {description && (
+              <Typography variant="body1" gutterBottom>
+                {description}
+              </Typography>
+            )}
+
             <div className={classes.positionRelative}>
               <video
                 className={classes.video}
@@ -114,8 +125,12 @@ const Course = () => {
           </Box>
         );
       })}
+
+      <Typography variant="body1" gutterBottom align="center">
+        Dziękuję za udział w szkoleniu!
+      </Typography>
     </>
   );
 };
 
-export default Course;
+export default SingleCourse;

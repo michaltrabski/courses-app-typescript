@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Course } from "../data/courses";
+import { Course } from "../data/coursesData";
 import { useHistory } from "react-router-dom";
 
 interface Props {
@@ -25,31 +25,24 @@ export default function CourseCard(props: Props) {
   const classes = useStyles();
   let history = useHistory();
 
-  const {
-    slug,
-    title,
-    offerDescription,
-    thumbnail,
-    price,
-    currency,
-  } = props.course;
+  const { course } = props;
 
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={() => console.log(history.push(slug))}>
+      <CardActionArea onClick={() => console.log(history.push(course.slug))}>
         <CardMedia
           component="img"
           alt="Contemplative Reptile"
           height="140"
-          image={thumbnail}
+          image={course.thumbnail}
           title="Contemplative Reptile"
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            {title}
+            {course.title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {offerDescription}
+            {course.offerDescription}
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -57,12 +50,17 @@ export default function CourseCard(props: Props) {
         <Button
           size="small"
           color="primary"
-          onClick={() => console.log(history.push(slug))}
+          onClick={() => console.log(history.push(course.slug))}
         >
           Oglądaj szkolenie
         </Button>
-        <Button size="small" color="secondary">
-          Kup teraz {price} {currency}
+        <Button
+          size="small"
+          color="secondary"
+          href={course.dotpay}
+          target="_blank"
+        >
+          Kup teraz {course.price} {course.currency}
         </Button>
       </CardActions>
     </Card>

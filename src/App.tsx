@@ -1,25 +1,25 @@
 import React from "react";
 import MuiThemeProvider from "./muiTheme/muiThemeProvider";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import CoursesList from "./components/CoursesList";
+import FrontPage from "./components/FrontPage";
 import { CssBaseline } from "@material-ui/core";
-import ContainerMy from "./components/ContainerMy";
-import Course from "./components/Course";
+import Wrapper from "./components/Wrapper";
+import SingleCourse from "./components/SingleCourse";
 
 function App() {
   return (
     <MuiThemeProvider>
       <CssBaseline />
-      <ContainerMy>
+      <Wrapper>
         <>
           <Router>
             <Switch>
-              <Route exact path="/" component={CoursesList} />
-              <Route path="/:id" component={Course} />
+              <Route exact path="/" component={FrontPage} />
+              <Route path="/:id" component={SingleCourse} />
             </Switch>
           </Router>
         </>
-      </ContainerMy>
+      </Wrapper>
     </MuiThemeProvider>
   );
 }

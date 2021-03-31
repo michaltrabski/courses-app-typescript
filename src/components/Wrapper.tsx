@@ -5,7 +5,7 @@ interface Props {
   children: JSX.Element | string | number;
 }
 
-export default function ContainerMy(props: Props) {
+export default function Wrapper(props: Props) {
   return (
     <React.Fragment>
       <Container maxWidth="md">

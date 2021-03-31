@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import CourseCard from "./CourseCard";
-import { allCourses } from "../data/courses";
+import { allCourses } from "../data/coursesData";
 import { Typography } from "@material-ui/core";
 
-function CoursesList() {
+function FrontPage() {
   const [courses, setCouses] = useState(allCourses);
   return (
     <>
@@ -21,4 +21,4 @@ function CoursesList() {
   );
 }
 
-export default CoursesList;
+export default FrontPage;
