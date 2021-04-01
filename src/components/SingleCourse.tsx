@@ -3,9 +3,10 @@ import { Box, Button, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import { allCourses } from "../data/coursesData";
-import { getCodes } from "../utils/utils";
+import { getCodes, isAccess } from "../utils/utils";
 import { green, yellow } from "@material-ui/core/colors";
 import AccessCodeForm from "./AccessCodeForm";
+import Video from "./Video";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -52,7 +53,7 @@ const SingleCourse = () => {
 
   if (!course) return <></>;
 
-  const access = codes.includes(course.accessCode);
+  const access = isAccess(codes, course.accessCodes);
 
   return (
     <>
@@ -66,81 +67,21 @@ const SingleCourse = () => {
         <Typography variant="body1" gutterBottom align="center">
           {course.cardDescription}
         </Typography>
-        {access ? (
-          <Typography variant="body1" gutterBottom align="center">
-            Tak - posiadasz już dostęp do tego szkolenia!
-          </Typography>
-        ) : (
-          <AccessCodeForm updateCodes={updateCodes} />
-        )}
       </Box>
 
-      {course.lessons.map((lesson, index) => {
-        const { title, description, videoUrl } = lesson;
-        return (
-          <Box key={index} mb={5}>
-            <Typography variant="h5" component="h2" gutterBottom>
-              Lekcja {index + 1}
-            </Typography>
-
-            {title && (
-              <Typography variant="h6" component="h3" gutterBottom>
-                {title}
-              </Typography>
-            )}
-
-            {description && (
-              <Typography variant="body1" gutterBottom>
-                {description}
-              </Typography>
-            )}
-
-            <div className={classes.positionRelative}>
-              <video
-                className={classes.video}
-                src={videoUrl}
-                controls={access}
-              ></video>
-
-              {access || (
-                <div className={classes.positionAbsolute}>
-                  <Box mb={1}>
-                    <Typography
-                      className={classes.bgYellow}
-                      variant="body2"
-                      gutterBottom
-                      align="center"
-                    >
-                      Wykup bezterminowy dostęp do wszystkich filmów wideo z
-                      tego szkolenia!
-                    </Typography>
-                  </Box>
-                  <Box mb={1}>
-                    <Button
-                      href={course.dotpay}
-                      target="_blank"
-                      variant="contained"
-                      color="secondary"
-                      fullWidth
-                      size="large"
-                    >
-                      Kup Teraz {course.price} {course.currency}
-                    </Button>
-                  </Box>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    fullWidth
-                    size="small"
-                  >
-                    Podaj kod dostępu
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Box>
-        );
-      })}
+      {course.lessons.map((lesson, index) => (
+        <>
+          <Video
+            course={course}
+            lesson={lesson}
+            number={index + 1}
+            access={index === 0 ? true : access}
+          />
+          {index === 0 && (
+            <AccessCodeForm updateCodes={updateCodes} course={course} />
+          )}
+        </>
+      ))}
 
       <Typography variant="body1" gutterBottom align="center">
         Dziękuję za udział w szkoleniu!

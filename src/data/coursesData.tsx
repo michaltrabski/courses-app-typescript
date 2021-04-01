@@ -1,13 +1,13 @@
 const folder = "https://poznaj-testy.hekko24.pl/kursy";
 
-interface Lesson {
+export interface Lesson {
   title: string;
   description: string;
   videoUrl: string;
 }
 
 export interface Course {
-  accessCode: string;
+  accessCodes: string[];
   slug: string;
   cardTitle: string;
   cardDescription: string;
@@ -19,7 +19,7 @@ export interface Course {
 }
 
 const kompendium: Course = {
-  accessCode: "KOMP",
+  accessCodes: ["KOMP", "KOWTS"],
   slug: "/kompendium-wiedzy",
   cardTitle: "Kompendium wiedzy przed egzaminem na prawo jazdy",
   cardDescription:
@@ -66,7 +66,7 @@ const kompendium: Course = {
 };
 
 const sytuacje: Course = {
-  accessCode: "SYT",
+  accessCodes: ["SYT", "SOERW"],
   slug: "/sytuacje-i-niespodzianki-na-egzaminie",
   cardTitle: "Sytuacje i niespodzianki na egzaminie na prawo jazdy!",
   cardDescription:

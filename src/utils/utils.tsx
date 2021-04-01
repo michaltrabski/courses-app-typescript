@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export const getUserAccessCodes = () => {
   let userAccessCodes: string[] = [];
   let codes = localStorage.getItem("userAccessCodes");
@@ -15,4 +17,18 @@ export const setCodes = (code: string) => {
   codes.push(code);
   localStorage.setItem("codes", JSON.stringify(codes));
   console.log(codes);
+};
+
+export const isAccess = (codes: string[], accessCodes: string[]) => {
+  console.log("codes", codes);
+  console.log("accessCodes", accessCodes);
+
+  const intersectionArr = _.intersection(
+    codes.map((i) => i.toLowerCase()),
+    accessCodes.map((i) => i.toLowerCase())
+  );
+
+  console.log("intersectionArr", intersectionArr);
+
+  return intersectionArr.length > 0;
 };
