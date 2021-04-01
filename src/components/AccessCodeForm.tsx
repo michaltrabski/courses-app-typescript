@@ -47,7 +47,7 @@ export default function AccessCodeForm(props: Props) {
     setValue("");
   };
   return (
-    <Box mt={5}>
+    <Box mb={5}>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <Paper className={classes.paper}>

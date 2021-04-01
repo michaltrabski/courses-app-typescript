@@ -1,6 +1,11 @@
 import React from "react";
 import MuiThemeProvider from "./muiTheme/muiThemeProvider";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import FrontPage from "./components/FrontPage";
 import { CssBaseline } from "@material-ui/core";
 import Wrapper from "./components/Wrapper";

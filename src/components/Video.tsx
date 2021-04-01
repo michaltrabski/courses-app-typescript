@@ -90,8 +90,9 @@ const Video = (props: Props) => {
               variant="contained"
               color="primary"
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              size="small"
             >
-              Podaj kod dostępu
+              Masz kod?
             </Button>
 
             <Button
@@ -99,6 +100,7 @@ const Video = (props: Props) => {
               target="_blank"
               variant="contained"
               color="secondary"
+              size="small"
             >
               Kup Teraz {price} {currency}
             </Button>
