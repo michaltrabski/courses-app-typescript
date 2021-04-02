@@ -5,6 +5,8 @@ import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { getCodes, setCodes } from "../utils/utils";
 import { Course } from "../data/coursesData";
 import Link from "@material-ui/core/Link";
+import Image from "./Image";
+import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,25 +18,19 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: "center",
       color: theme.palette.text.secondary,
     },
-    // root: {
-    //   textAlign: "center",
-    //   "& > *": {
-    //     marginBottom: theme.spacing(1),
-    //     marginRight: "auto",
-    //     marginLeft: "auto",
-    //     width: "25ch",
-    //     textAlign: "center",
-    //   },
-    // },
+    success: {
+      color: green[500],
+    },
   })
 );
 
 interface Props {
   updateCodes: React.Dispatch<React.SetStateAction<string[]>>;
   course: Course;
+  access: boolean;
 }
 
-export default function AccessCodeForm(props: Props) {
+export default function Cart(props: Props) {
   const classes = useStyles();
   const [value, setValue] = useState("");
 
@@ -49,8 +45,19 @@ export default function AccessCodeForm(props: Props) {
   return (
     <Box mb={5}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={3}>
           <Paper className={classes.paper}>
+            {props.access && (
+              <Typography
+                variant="body2"
+                gutterBottom
+                align="center"
+                className={classes.success}
+              >
+                TAK. Posiadasz już aktywowany dostęp do tego szkolenia!
+              </Typography>
+            )}
+
             <Typography variant="body2" gutterBottom align="center">
               Masz już wykupiony dostęp do szkolenia? Podaj kod dostępu, który
               otrzymałeś na email użyty przy zakupie dostępu.
@@ -84,9 +91,19 @@ export default function AccessCodeForm(props: Props) {
             </form>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} md={9}>
           <Paper className={classes.paper}>
+            <Image />
+            <Typography variant="h6" component="h3" gutterBottom align="center">
+              100% gwarancja satysfakcji!
+            </Typography>
             <Typography variant="body2" gutterBottom align="center">
+              Kup dostęp do szkolenia bez ryzyka. Możesz się rozmyślić w ciągu
+              30 dni. Wystarczy, że napiszesz do nas na adres:
+              prawojazdy.pomoc@gmail.com a my zwrócimy Ci wszystkie pieniądze.
+            </Typography>
+
+            <Typography variant="h6" component="h3" gutterBottom align="center">
               Wykup bezterminowy dostęp do szkolenia:
             </Typography>
 
@@ -105,15 +122,6 @@ export default function AccessCodeForm(props: Props) {
                 Przejdź do formularza zamówienia TUTAJ.
               </Link>
             </Box>
-
-            <Typography variant="body2" gutterBottom align="center">
-              100% gwarancja satysfakcji!
-            </Typography>
-            <Typography variant="body2" gutterBottom align="center">
-              Kup dostęp do szkolenia bez ryzyka. Możesz się rozmyślić w ciągu
-              30 dni. Wystarczy, że napiszesz do nas na adres:
-              prawojazdy.pomoc@gmail.com a my zwrócimy Ci wszystkie pieniądze.
-            </Typography>
           </Paper>
         </Grid>
       </Grid>

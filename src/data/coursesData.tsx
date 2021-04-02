@@ -18,12 +18,12 @@ export interface Course {
   lessons: Lesson[];
 }
 
-const kompendium: Course = {
+const kompendiumPrzedEgzamine: Course = {
   accessCodes: ["KOMP", "KOWTS"],
-  slug: "/kompendium-wiedzy",
+  slug: "/kompendium-wiedzy-przed-egzaminem-na-prawo-jazdy",
   cardTitle: "Kompendium wiedzy przed egzaminem na prawo jazdy",
   cardDescription:
-    "Z tego wideo szkolenia dowiesz się krok po kroku, co będzie na twoim państwowym egzaminie na prawo jazdy! Zapraszam do oglądania lekcji wideo.",
+    "Z tego wideo szkolenia dowiesz się krok po kroku, co będzie na Twoim państwowym egzaminie na prawo jazdy! Zapraszam do oglądania lekcji wideo.",
   thumbnail: `https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80`,
   price: 47,
   dotpay:
@@ -31,6 +31,11 @@ const kompendium: Course = {
   currency: "zł",
 
   lessons: [
+    {
+      title: "",
+      description: "",
+      videoUrl: `${folder}/kompendium_przed_egzaminem.mp4`,
+    },
     {
       title: "",
       description: "",
@@ -65,12 +70,12 @@ const kompendium: Course = {
   ],
 };
 
-const sytuacje: Course = {
+const niespodziankiNaEgzaminie: Course = {
   accessCodes: ["SYT", "SOERW"],
-  slug: "/sytuacje-i-niespodzianki-na-egzaminie",
-  cardTitle: "Sytuacje i niespodzianki na egzaminie na prawo jazdy!",
+  slug: "/niespodzianki-na-egzaminie-na-prawo-jazdy",
+  cardTitle: "Niespodzianki na egzaminie na prawo jazdy!",
   cardDescription:
-    "W tym wideo szkoleniu wyjaśniam wszystki podchwytliwe sytuacje i niespodzianki, jakie możesz napotkać na egzaminie państwowym na prawo jazdy!",
+    "W tym wideo szkoleniu wyjaśniam wszystki podchwytliwe sytuacje i niespodzianki, jakie możesz napotkać na Twoim egzaminie państwowym na prawo jazdy!",
   thumbnail: `https://images.unsplash.com/photo-1511919884226-fd3cad34687c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80`,
   price: 47,
   dotpay:
@@ -78,8 +83,13 @@ const sytuacje: Course = {
   currency: "zł",
   lessons: [
     {
-      title: "Zapraszam do lekcji pierwszej.",
+      title: "Zapraszam do wzięcia udziału w szkoleniu!",
       description: "Możesz podkręcić głośność.",
+      videoUrl: `${folder}/niespodzianki_na_egaminie.mp4`,
+    },
+    {
+      title: "",
+      description: "",
       videoUrl: `${folder}/1-3sytuacje.mp4`,
     },
     {
@@ -105,4 +115,7 @@ const sytuacje: Course = {
   ],
 };
 
-export const allCourses: Course[] = [kompendium, sytuacje];
+export const allCourses: Course[] = [
+  kompendiumPrzedEgzamine,
+  niespodziankiNaEgzaminie,
+];

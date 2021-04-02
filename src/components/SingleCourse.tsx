@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { allCourses } from "../data/coursesData";
 import { getCodes, isAccess } from "../utils/utils";
 import { green, yellow } from "@material-ui/core/colors";
-import AccessCodeForm from "./AccessCodeForm";
+import Cart from "./Cart";
 import Video from "./Video";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -75,10 +75,10 @@ const SingleCourse = () => {
             course={course}
             lesson={lesson}
             number={index + 1}
-            access={index === 0 ? true : access}
+            access={index <= 1 ? true : access}
           />
           {index === 0 && (
-            <AccessCodeForm updateCodes={updateCodes} course={course} />
+            <Cart updateCodes={updateCodes} course={course} access={access} />
           )}
         </>
       ))}

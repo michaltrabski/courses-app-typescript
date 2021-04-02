@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Button, Typography } from "@material-ui/core";
+import { Badge, Box, Button, Typography } from "@material-ui/core";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { useLocation } from "react-router-dom";
 import { Lesson, Course } from "../data/coursesData";
-import { getCodes, isAccess } from "../utils/utils";
-import { green, yellow } from "@material-ui/core/colors";
-import AccessCodeForm from "./AccessCodeForm";
+
+import { green, red, yellow } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -40,6 +39,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
     },
+    success: {
+      color: green[600],
+    },
+    danger: {
+      color: red[600],
+    },
   })
 );
 
@@ -61,7 +66,12 @@ const Video = (props: Props) => {
   return (
     <Box mb={5}>
       <Typography variant="h5" component="h2" gutterBottom>
-        Lekcja {number}
+        Lekcja {number} -{" "}
+        {access ? (
+          <span className={classes.success}>masz dostęp do tej lekcji</span>
+        ) : (
+          <span className={classes.danger}>płatny dostęp</span>
+        )}
       </Typography>
 
       {title && (

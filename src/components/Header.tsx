@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
+      cursor: "pointer",
     },
   })
 );
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Header() {
   const classes = useStyles();
   const { pathname } = useLocation();
+  const history = useHistory();
 
   console.log(pathname);
 
@@ -36,8 +38,12 @@ export default function Header() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            <Link to="/">Szkolenia</Link>
+          <Typography
+            variant="h6"
+            className={classes.title}
+            onClick={() => history.push("/")}
+          >
+            Szkolenia
           </Typography>
           {/* <Button color="inherit">Logowanie</Button>
           <IconButton
