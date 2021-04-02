@@ -90,7 +90,7 @@ const Video = (props: Props) => {
         <video
           className={classes.video}
           style={opacity}
-          src={videoUrl}
+          src={`${videoUrl}${access ? "" : "#t=130"}`}
           controls={access}
         ></video>
 
