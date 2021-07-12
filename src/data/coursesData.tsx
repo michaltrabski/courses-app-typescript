@@ -44,7 +44,7 @@ const kompendiumPrzedEgzamine: Course = {
     {
       title: "",
       description: "",
-      videoUrl: `${folder}/lok_i_gorka.mp4`,
+      videoUrl: `${folder}/luk_i_gorka.mp4`,
     },
     {
       title: "",
@@ -85,7 +85,7 @@ const niespodziankiNaEgzaminie: Course = {
     {
       title: "Zapraszam do wzięcia udziału w szkoleniu!",
       description: "Możesz podkręcić głośność.",
-      videoUrl: `${folder}/niespodzianki_na_egaminie.mp4`,
+      videoUrl: `${folder}/niespodzianki_na_egzaminie.mp4`,
     },
     {
       title: "",
