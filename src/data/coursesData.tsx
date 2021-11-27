@@ -1,4 +1,5 @@
-const folder = "https://poznaj-testy.hekko24.pl/kursy";
+// const folder = "https://poznaj-testy.hekko24.pl/kursy";
+const folder = "https://files.dacmwwxjyw.cfolks.pl/kursy";
 
 export interface Lesson {
   title: string;
